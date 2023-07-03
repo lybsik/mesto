@@ -16,7 +16,6 @@
   cursor: pointer;
   box-sizing: border-box;
 }
-
 .form__button-save:hover {
   opacity: 0.8;
 }

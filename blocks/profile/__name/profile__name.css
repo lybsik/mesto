@@ -12,9 +12,10 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 @media screen and (max-width: 321px) {
   .profile__name {
       font-size: 27px;
-      line-height: normal;
+      line-height: 32px;
   }
 }

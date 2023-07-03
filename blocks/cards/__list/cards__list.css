@@ -6,12 +6,15 @@
     margin: 0 auto;
     padding: 0;
 }
-@media screen and (max-width: 880px) {
+
+@media screen and (max-width: 900px) {
     .cards__list {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 582px;
     }
 }
-@media screen and (max-width: 581px) {
+
+@media screen and (max-width: 620px) {
     .cards__list {
         grid-template-columns: repeat(1, 1fr);
     }

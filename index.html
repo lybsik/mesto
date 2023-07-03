@@ -16,10 +16,10 @@
                 <img class="profile__avatar" src="./images/image.jpg" alt="Фото профиля" />
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button" type="button"></button>
+                    <button class="profile__edit-button" type="button" aria-label="редактирование профиля"></button>
                     <p class="profile__caption">Исследователь океана</p>
                 </div>
-                <button class="profile__add-button" type="button"></button>
+                <button class="profile__add-button" type="button" aria-label="добавление фото"></button>
             </section>
 
             <section class="cards">
@@ -28,42 +28,42 @@
                         <img src="./images/dombay.jpg" alt="Домбай" class="cards__image" />
                         <div class="cards__container">
                             <h2 class="cards__title">Домбай</h2>
-                            <button class="cards__like-button" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="cards__list-item">
-                        <img src="./images//krasnaya_polyana.jpg" alt="Красная поляна" class="cards__image" />
-                        <div class="cards__container">
-                            <h2 class="cards__title">Красная поляна поляна</h2>
-                            <button class="cards__like-button" type="button"></button>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
                         </div>
                     </li>
                     <li class="cards__list-item">
                         <img src="./images/sheregesh.jpg" alt="Шерегеш" class="cards__image" />
                         <div class="cards__container">
                             <h2 class="cards__title">Шерегеш</h2>
-                            <button class="cards__like-button" type="button"></button>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
+                        </div>
+                    </li>
+                    <li class="cards__list-item">
+                        <img src="./images/krasnaya_polyana.jpg" alt="Красная поляна" class="cards__image" />
+                        <div class="cards__container">
+                            <h2 class="cards__title">Красная поляна</h2>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
+                        </div>
+                    </li>
+                    <li class="cards__list-item">
+                        <img src="./images/sheregesh.jpg" alt="Шерегеш" class="cards__image" />
+                        <div class="cards__container">
+                            <h2 class="cards__title">Шерегеш</h2>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
+                        </div>
+                    </li>
+                    <li class="cards__list-item">
+                        <img src="./images/krasnaya_polyana.jpg" alt="Красная поляна" class="cards__image" />
+                        <div class="cards__container">
+                            <h2 class="cards__title">Красная поляна</h2>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
                         </div>
                     </li>
                     <li class="cards__list-item">
                         <img src="./images/dombay.jpg" alt="Домбай" class="cards__image" />
                         <div class="cards__container">
                             <h2 class="cards__title">Домбай</h2>
-                            <button class="cards__like-button" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="cards__list-item">
-                        <img src="./images//krasnaya_polyana.jpg" alt="Красная поляна" class="cards__image" />
-                        <div class="cards__container">
-                            <h2 class="cards__title">Красная поляна поляна</h2>
-                            <button class="cards__like-button" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="cards__list-item">
-                        <img src="./images/sheregesh.jpg" alt="Шерегеш" class="cards__image" />
-                        <div class="cards__container">
-                            <h2 class="cards__title">Шерегеш</h2>
-                            <button class="cards__like-button" type="button"></button>
+                            <button class="cards__like-button" type="button" aria-label="отметить как понравившееся"></button>
                         </div>
                     </li>
                 </ul>
@@ -74,14 +74,14 @@
             <p class="footer__copyright">© 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup popup_type_edit-profile">
+        <div class="popup">
             <div class="popup__container">
-                <button type="button" class="popup__close-button"></button>
+                <button type="button" class="popup__close-button" aria-label="закрыть"></button>
+                <h2 class="form__title">Редактировать профиль</h2>
                 <form name="profile" class="form" novalidate>
-                    <h2 class="form__title">Редактировать профиль</h2>
                     <input name="name" class="form__input form__input_type_name" type="text" required minlength="2" maxlength="40" />
                     <input name="about" class="form__input form__input_type_about" type="text" required minlength="2" maxlength="200" />
-                    <button type="submit" class="form__button-save">Сохранить</button>
+                    <button type="submit" class="form__button-save" aria-label="сохранить">Сохранить</button>
                 </form>
             </div>
         </div>

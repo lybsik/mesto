@@ -12,9 +12,15 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@media screen and (max-width: 720px) {
+  .profile__caption {
+      text-align: center;
+  }
+}
+
 @media screen and (max-width: 321px) {
   .profile__caption {
       font-size: 14px;
-      text-align: center;
   }
 }

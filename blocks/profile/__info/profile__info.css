@@ -9,10 +9,11 @@
         "profile__name profile__edit-button"
         "profile__caption profile__caption";
 }
-@media screen and (max-width: 321px) {
+
+@media screen and (max-width: 720px) {
     .profile__info {
-        margin-top: 22.25px;
-        margin-bottom: 36px;
+        margin-top: 28px;
+        margin-bottom: 30px;
         gap: 10px;
         grid-template-columns: 1fr 18px;
     }

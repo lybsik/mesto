@@ -9,8 +9,11 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
+
 @media screen and (max-width: 321px) {
   .page {
-      max-width: 320px;
+      min-width: 100%;
+      padding: 0;
+      margin: 0;
   }
 }

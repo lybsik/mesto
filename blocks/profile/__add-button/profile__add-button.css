@@ -5,19 +5,23 @@
     width: 150px;
     height: 50px;
     background-color: transparent;
-    background-image: url("../../../images/add.svg");
-    background-position: 50% 50%;
+    background-image: url("../../../images/add-button.svg");
+    background-position: center;
     background-repeat: no-repeat;
+    box-sizing: border-box;
     border: 2px solid #fff;
+    border-radius: 2px;
     cursor: pointer;
     align-self: center;
-    box-sizing: border-box;
 }
 .profile__add-button:hover {
     opacity: 0.6;
 }
-@media screen and (max-width: 321px) {
+
+@media screen and (max-width: 720px) {
     .profile__add-button {
         width: 282px;
+        margin: auto;
+        background-size: 16px 16px;
     }
 }
