@@ -16,7 +16,7 @@
 
 
 **Макет**
-[Ссылка на макет в GitHub](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+[Ссылка на макет в GitHub](https://lybsik.github.io/mesto/)
 
 **Планы по доработке макета**
 Макет будет доработан в соответствии с требованиями 5 и 6 спринта моего обучения.
