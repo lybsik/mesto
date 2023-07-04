@@ -14,6 +14,9 @@
 .form__input:last-of-type {
   margin-bottom: 0;
 }
+.form__input:focus {
+  border: 1px solid lavender;
+}
 
 @media screen and (max-width: 321px) {
   .form__input {
