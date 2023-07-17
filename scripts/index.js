@@ -5,9 +5,9 @@ const popupPhoto = document.querySelector('.popup-photo')
 const profileEditButton = document.querySelector('.profile__edit-button'); 
 const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__close-button'); 
 
-const formElement = document.querySelector('#form_edit'); /*Заводим постоянную переменную выбирая из всего документа форму редактирования профиля*/
-const popupNameInput = formElement.querySelector('.form__input_type_name'); /*Объявляем переменную (элемент формы) выбирая первый нужный инпут из этой формы*/
-const popupAboutInput = formElement.querySelector('.form__input_type_about'); /*Объявляем переменную (элемент формы) выбирая второй нужный инпут из этой формы*/
+const formElementEditProfile = document.querySelector('#form_edit'); /*Заводим постоянную переменную выбирая из всего документа форму редактирования профиля*/
+const popupNameInput = formElementEditProfile.querySelector('.form__input_type_name'); /*Объявляем переменную (элемент формы) выбирая первый нужный инпут из этой формы*/
+const popupAboutInput = formElementEditProfile.querySelector('.form__input_type_about'); /*Объявляем переменную (элемент формы) выбирая второй нужный инпут из этой формы*/
 const nameInput = document.querySelector('.profile__name'); /*Объявляем первую переменную ввода выбирая из всего документа нужный текст*/
 const aboutInput = document.querySelector('.profile__caption'); /*Объявляем вторую переменную ввода выбирая из всего документа нужный текст*/
 
@@ -25,16 +25,18 @@ const title = popupPhoto.querySelector('.popup-photo__title'); //создаем 
 const cardsContainer = document.querySelector('.cards'); //создали переменную карточки выбрав из документа класс cards
 const cardTemplate = document.querySelector('#card').content; //создали переменную из template из которой нам нужен будет контент
 
+const renderCard = (card) => {
+    cardsContainer.prepend(card)
+}
+
 initialCards.forEach((item) => { //перебираем массив с переменной item
-    const card = createCard(item.name, item.link) //создаем переменную карточки внутри которй будет созданы переменные со значениями name и link как в нашем массиве
-    cardsContainer.prepend(card) //объявляем переменную карточки появляющуся ПЕРЕД всеми остальными из массива
+    const card = createCard(item.name, item.link); //создаем переменную карточки внутри которй будет созданы переменные со значениями name и link как в нашем массиве
+    renderCard(card);;//объявляем переменную карточки появляющуся ПЕРЕД всеми остальными из массива
 })
 
 //Функция открывания попапов
 function openPopup(popup) {
     popup.classList.add('popup_opened'); /*Добавляется модификатор открытия со свойством видимости*/
-    
-    
 }
 
 //функция закрывания попапов
@@ -73,7 +75,7 @@ function handleSaveEditProfile(evt) {
     closePopup(popupEditProfile);
 }
 
-formElement.addEventListener('submit', handleSaveEditProfile); //наша форма для редактирования слышит как при сохранении запускается функция сохранения информации при редактировании профиля
+formElementEditProfile.addEventListener('submit', handleSaveEditProfile); //наша форма для редактирования слышит как при сохранении запускается функция сохранения информации при редактировании профиля
 
 //функция создания новой карточки
 function createCard (name, link) { 
@@ -105,7 +107,7 @@ function createCard (name, link) {
 function handleSaveCreateCard(evt) { 
     evt.preventDefault();
     const newCard = createCard(titleInput.value, linkInput.value);
-    cardsContainer.prepend(newCard);
+    renderCard(newCard);
     closePopup(popupAddPlace);
   }  
   
