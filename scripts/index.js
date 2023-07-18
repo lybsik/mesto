@@ -1,38 +1,34 @@
-const popupEditProfile = document.querySelector('.popup_edit'); 
+const popupEditProfile = document.querySelector('.popup_edit');
 const popupAddPlace = document.querySelector('.popup_place');
 const popupPhoto = document.querySelector('.popup-photo')
 
-const profileEditButton = document.querySelector('.profile__edit-button'); 
-const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__close-button'); 
+const profileEditButton = document.querySelector('.profile__edit-button');
+const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__close-button');
 
-const formElementEditProfile = document.querySelector('#form_edit'); /*Заводим постоянную переменную выбирая из всего документа форму редактирования профиля*/
-const popupNameInput = formElementEditProfile.querySelector('.form__input_type_name'); /*Объявляем переменную (элемент формы) выбирая первый нужный инпут из этой формы*/
-const popupAboutInput = formElementEditProfile.querySelector('.form__input_type_about'); /*Объявляем переменную (элемент формы) выбирая второй нужный инпут из этой формы*/
-const nameInput = document.querySelector('.profile__name'); /*Объявляем первую переменную ввода выбирая из всего документа нужный текст*/
-const aboutInput = document.querySelector('.profile__caption'); /*Объявляем вторую переменную ввода выбирая из всего документа нужный текст*/
+const formElementEditProfile = document.querySelector('#form_edit');
+const popupNameInput = formElementEditProfile.querySelector('.form__input_type_name');
+const popupAboutInput = formElementEditProfile.querySelector('.form__input_type_about');
+const nameInput = document.querySelector('.profile__name');
+const aboutInput = document.querySelector('.profile__caption');
 
-const profileAddPlaceButton = document.querySelector('.profile__add-button'); /*Заводим постоянную переменную выбирая из всего документа кнопку добавления фото*/
-const buttonCloseAddPlace = popupAddPlace.querySelector('.popup__close-button'); /*Заводим постоянную переменную выбирая из выше найденного попапа кнопку закрытия*/
+const profileAddPlaceButton = document.querySelector('.profile__add-button');
+const buttonCloseAddPlace = popupAddPlace.querySelector('.popup__close-button');
 
-const formPlaceElement = document.querySelector('#form_place'); //заводим переменную для формы добавления новой карточки
-const titleInput = formPlaceElement.querySelector('.form__input_type_title'); /*Объявляем переменную (элемент формы) выбирая первый нужный инпут из этой формы*/
-const linkInput = formPlaceElement.querySelector('.form__input_type_link'); /*Объявляем переменную (элемент формы) выбирая второй нужный инпут из этой формы*/
+const formPlaceElement = document.querySelector('#form_place');
+const titleInput = formPlaceElement.querySelector('.form__input_type_title');
+const linkInput = formPlaceElement.querySelector('.form__input_type_link');
 
-const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button'); //создаем переменную кнопки закрытия фото выбрав из документа класс кнопки этой
-const photo = popupPhoto.querySelector('.popup-photo__image'); //создаем переменную фотографии выбрав из ранее созданной переменной класс с картинкой
-const title = popupPhoto.querySelector('.popup-photo__title'); //создаем переменную заголовка выбрав из ранее созданной переменной класс с заголовком
+const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button');
+const photo = popupPhoto.querySelector('.popup-photo__image');
+const title = popupPhoto.querySelector('.popup-photo__title');
 
-const cardsContainer = document.querySelector('.cards'); //создали переменную карточки выбрав из документа класс cards
+const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card').content; //создали переменную из template из которой нам нужен будет контент
 
+//вынесли отдельно появление карточки ПЕРЕД теми что уже есть на странице
 const renderCard = (card) => {
     cardsContainer.prepend(card)
 }
-
-initialCards.forEach((item) => { //перебираем массив с переменной item
-    const card = createCard(item.name, item.link); //создаем переменную карточки внутри которй будет созданы переменные со значениями name и link как в нашем массиве
-    renderCard(card);;//объявляем переменную карточки появляющуся ПЕРЕД всеми остальными из массива
-})
 
 //Функция открывания попапов
 function openPopup(popup) {
@@ -61,15 +57,13 @@ function openAddPlacePopup() {
 
 profileEditButton.addEventListener('click', () => {openEditProfilePopup()}); /*кнопка редактирования слышит как при нажатии на нее запускается Функция редактирования профиля*/
 buttonCloseEditProfile.addEventListener('click',() => {closePopup(popupEditProfile)}); /*кнопка закрытия на попапе слышит как при нажатии на нее запускается Функция закрытия попапа*/
-
 profileAddPlaceButton.addEventListener('click', () => {openAddPlacePopup()});//кнопка с плюсиком слышит как при клике на нее запускается функция открытия попапа
 buttonCloseAddPlace.addEventListener('click', () => {closePopup(popupAddPlace)}); //кнопка с плюсиком слышит как при клике на нее запускается функция закрытия попапа
-
 closeButtonPhotoPopup.addEventListener('click', () => {closePopup(popupPhoto)}) //кнопка крестика на фото слышит как при клике на нее попап закрывается
 
 //функция Сохранения информации при редактировании профиля
 function handleSaveEditProfile(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     nameInput.textContent = popupNameInput.value;
     aboutInput.textContent = popupAboutInput.value;
     closePopup(popupEditProfile);
@@ -78,16 +72,16 @@ function handleSaveEditProfile(evt) {
 formElementEditProfile.addEventListener('submit', handleSaveEditProfile); //наша форма для редактирования слышит как при сохранении запускается функция сохранения информации при редактировании профиля
 
 //функция создания новой карточки
-function createCard (name, link) { 
-    const card = cardTemplate.querySelector('.cards__list-item').cloneNode(true);                                   //создали переменную выбрав из ранее созданной переменной нужный нам класс и клонируем его содержимое
-    const likeButton = card.querySelector('.cards__like-button'); 
-    const deleteButton = card.querySelector('.cards__delete-button'); 
-    const cardImage = card.querySelector('.cards__image'); 
-    cardImage.src =  link; 
-    const cardTitle = card.querySelector('.cards__title'); 
-    cardTitle.textContent = name; 
+function createCard (cardData) {
+    const card = cardTemplate.querySelector('.cards__list-item').cloneNode(true);   //создали переменную выбрав из ранее созданной переменной нужный нам класс и клонируем его содержимое
+    const likeButton = card.querySelector('.cards__like-button');
+    const deleteButton = card.querySelector('.cards__delete-button');
+    const cardImage = card.querySelector('.cards__image');
+    const cardTitle = card.querySelector('.cards__title');
+    cardTitle.textContent = cardData.name;
+    cardImage.src =  cardData.link;
     cardImage.alt = `Фотография ${cardTitle.textContent}`;
-    
+
     likeButton.addEventListener('click', function() { //кнопка лайка слушает как при клике на нее запускается функция:
         likeButton.classList.toggle('cards__like-button_active'); //в которой переключается состояние нашего сердечка на активное
     });
@@ -103,13 +97,20 @@ function createCard (name, link) {
     })
     return(card); //возвращаем готовую карточку со всем что выше мы в нее положили
 }
+
+initialCards.forEach((item) => {
+  const card = createCard(item);
+  renderCard(card); //объявляем переменную карточки появляющуся ПЕРЕД всеми остальными из массива
+})
 //функция сохранения новой карточки
-function handleSaveCreateCard(evt) { 
+function handleSaveCreateCard(evt) {
     evt.preventDefault();
-    const newCard = createCard(titleInput.value, linkInput.value);
+    const newCardData = {name: titleInput.value, link: linkInput.value};
+    const newCard = createCard(newCardData)
     renderCard(newCard);
+    formPlaceElement.reset();
     closePopup(popupAddPlace);
-  }  
-  
+}
+
   formPlaceElement.addEventListener('submit', handleSaveCreateCard); //наша форма создания новой краточки слышит как при сохранении запускается функция созданная выше
-  
+
