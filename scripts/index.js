@@ -1,6 +1,15 @@
+const validationConfig = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__button-save',
+    inactiveButtonClass: 'form__button-save_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'popup__input-error_visible'
+}; 
+
 const popupEditProfile = document.querySelector('.popup_edit');
 const popupAddPlace = document.querySelector('.popup_place');
-const popupPhoto = document.querySelector('.popup-photo')
+const popupPhoto = document.querySelector('.popup-photo');
 
 const profileEditButton = document.querySelector('.profile__edit-button');
 const buttonCloseEditProfile = popupEditProfile.querySelector('.popup__close-button');
@@ -30,15 +39,45 @@ const renderCard = (card) => {
     cardsContainer.prepend(card)
 }
 
+//функция закрытия попапа через оверлей
+function popupOverlay(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(evt.target)
+    }
+  } 
+  
+const popupArray = Array.from(document.querySelectorAll('.popup'))
+  popupArray.forEach((item) => {
+    item.addEventListener('click', (evt) => {popupOverlay(evt)})
+    })
+
+//функция закрытия при нажатии на ESCAPE
+  function closeEscButton(evt) {
+    if (evt.keyCode === 27) {
+      const popup = document.querySelector('.popup_opened')
+      closePopup(popup)
+    }
+  }  
+
 //Функция открывания попапов
 function openPopup(popup) {
     popup.classList.add('popup_opened'); /*Добавляется модификатор открытия со свойством видимости*/
+    document.addEventListener('keyup', closeEscButton);
 }
 
 //функция закрывания попапов
 function closePopup(popup) {
     popup.classList.remove('popup_opened'); /*Удаляется модификатор открытия, попап становится снова невидимым*/
+    document.removeEventListener('keyup', closeEscButton);
 }
+
+//овeрлей на попапе
+function clickOverlay(evt) {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(evt.target)
+    }
+  } 
+
 
 //функция открытия редактирования профиля
 function openEditProfilePopup(){
@@ -114,3 +153,4 @@ function handleSaveCreateCard(evt) {
 
   formPlaceElement.addEventListener('submit', handleSaveCreateCard); //наша форма создания новой краточки слышит как при сохранении запускается функция созданная выше
 
+enableValidation(validationConfig);
