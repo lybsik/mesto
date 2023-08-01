@@ -40,7 +40,7 @@ const renderCard = (card) => {
 }
 
 //функция закрытия попапа через оверлей
-function popupOverlay(evt) {
+function closeByOverlay(evt) {
     if (evt.target.classList.contains('popup_opened')) {
       closePopup(evt.target)
     }
@@ -48,12 +48,12 @@ function popupOverlay(evt) {
   
 const popupArray = Array.from(document.querySelectorAll('.popup'))
   popupArray.forEach((item) => {
-    item.addEventListener('click', (evt) => {popupOverlay(evt)})
+    item.addEventListener('click', (evt) => {closeByOverlay(evt)})
     })
 
 //функция закрытия при нажатии на ESCAPE
   function closeEscButton(evt) {
-    if (evt.keyCode === 27) {
+    if (evt.key === "Escape") {
       const popup = document.querySelector('.popup_opened')
       closePopup(popup)
     }
@@ -88,8 +88,7 @@ function openEditProfilePopup(){
 
 //функция открытия добавления карточки
 function openAddPlacePopup() {
-    titleInput.value = ''; //даем значение названия для добавления новой карточки
-    linkInput.value = ''; //даем значение ссылки для добавления новой карточки
+    formPlaceElement.reset();
     openPopup(popupAddPlace);
 }
 
