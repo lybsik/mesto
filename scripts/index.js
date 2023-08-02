@@ -23,9 +23,11 @@ const aboutInput = document.querySelector('.profile__caption');
 const profileAddPlaceButton = document.querySelector('.profile__add-button');
 const buttonCloseAddPlace = popupAddPlace.querySelector('.popup__close-button');
 
+
 const formPlaceElement = document.querySelector('#form_place');
 const titleInput = formPlaceElement.querySelector('.form__input_type_title');
 const linkInput = formPlaceElement.querySelector('.form__input_type_link');
+const submitButton = formPlaceElement.querySelector('.form__button-save');
 
 const closeButtonPhotoPopup = document.querySelector('.popup-photo__close-button');
 const photo = popupPhoto.querySelector('.popup-photo__image');
@@ -89,7 +91,10 @@ function openEditProfilePopup(){
 //функция открытия добавления карточки
 function openAddPlacePopup() {
     formPlaceElement.reset();
+    submitButton.classList.add('form__button-save_disabled');
+    submitButton.disabled = true;
     openPopup(popupAddPlace);
+    
 }
 
 
