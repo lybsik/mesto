@@ -1,11 +1,5 @@
-const validationConfig = {
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__button-save',
-    inactiveButtonClass: 'form__button-save_disabled',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'popup__input-error_visible'
-}; 
+import Card from "./Card.js";
+import { validationConfig, FormValidator } from './FormValidator.js';
 
 const popupEditProfile = document.querySelector('.popup_edit');
 const popupAddPlace = document.querySelector('.popup_place');
@@ -34,12 +28,12 @@ const photo = popupPhoto.querySelector('.popup-photo__image');
 const title = popupPhoto.querySelector('.popup-photo__title');
 
 const cardsContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('#card').content; //создали переменную из template из которой нам нужен будет контент
+const templateElement = document.querySelector('#card').content; //создали переменную из template из которой нам нужен будет контент
 
-//вынесли отдельно появление карточки ПЕРЕД теми что уже есть на странице
-const renderCard = (card) => {
-    cardsContainer.prepend(card)
-}
+const validationAddForm = new FormValidator(validationConfig, formPlaceElement)
+validationAddForm.enableValidation();
+const validationEditForm = new FormValidator(validationConfig, formElementEditProfile)
+validationEditForm.enableValidation();
 
 //функция закрытия попапа через оверлей
 function closeByOverlay(evt) {
@@ -62,7 +56,7 @@ const popupArray = Array.from(document.querySelectorAll('.popup'))
   }  
 
 //Функция открывания попапов
-function openPopup(popup) {
+export function openPopup(popup) {
     popup.classList.add('popup_opened'); /*Добавляется модификатор открытия со свойством видимости*/
     document.addEventListener('keyup', closeEscButton);
 }
@@ -73,16 +67,11 @@ function closePopup(popup) {
     document.removeEventListener('keyup', closeEscButton);
 }
 
-//овeрлей на попапе
-function clickOverlay(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      closePopup(evt.target)
-    }
-  } 
 
 
 //функция открытия редактирования профиля
 function openEditProfilePopup(){
+    formElementEditProfile.reset();
     popupNameInput.value = nameInput.textContent; /*В первый элемент формы даем значение равное первому тексту (у нас это имя) и говорим что это текст-Это для редактирования информации*/
     popupAboutInput.value = aboutInput.textContent; /*Во второй элемент формы даем значение равное второму тексту (профессия) и говорим что это текст*/
     openPopup(popupEditProfile);
@@ -98,11 +87,17 @@ function openAddPlacePopup() {
 }
 
 
-profileEditButton.addEventListener('click', () => {openEditProfilePopup()}); /*кнопка редактирования слышит как при нажатии на нее запускается Функция редактирования профиля*/
-buttonCloseEditProfile.addEventListener('click',() => {closePopup(popupEditProfile)}); /*кнопка закрытия на попапе слышит как при нажатии на нее запускается Функция закрытия попапа*/
-profileAddPlaceButton.addEventListener('click', () => {openAddPlacePopup()});//кнопка с плюсиком слышит как при клике на нее запускается функция открытия попапа
-buttonCloseAddPlace.addEventListener('click', () => {closePopup(popupAddPlace)}); //кнопка с плюсиком слышит как при клике на нее запускается функция закрытия попапа
-closeButtonPhotoPopup.addEventListener('click', () => {closePopup(popupPhoto)}) //кнопка крестика на фото слышит как при клике на нее попап закрывается
+profileEditButton.addEventListener('click', () => {
+  openEditProfilePopup() 
+  validationEditForm.resetValidation();
+});
+buttonCloseEditProfile.addEventListener('click',() => {closePopup(popupEditProfile)}); 
+profileAddPlaceButton.addEventListener('click', () => {   
+  openAddPlacePopup() 
+  validationEditForm.resetValidation();
+});
+buttonCloseAddPlace.addEventListener('click', () => {closePopup(popupAddPlace)}); 
+closeButtonPhotoPopup.addEventListener('click', () => {closePopup(popupPhoto)});
 
 //функция Сохранения информации при редактировании профиля
 function handleSaveEditProfile(evt) {
@@ -112,11 +107,11 @@ function handleSaveEditProfile(evt) {
     closePopup(popupEditProfile);
 }
 
-formElementEditProfile.addEventListener('submit', handleSaveEditProfile); //наша форма для редактирования слышит как при сохранении запускается функция сохранения информации при редактировании профиля
+formElementEditProfile.addEventListener('submit', handleSaveEditProfile);
 
 //функция создания новой карточки
-function createCard (cardData) {
-    const card = cardTemplate.querySelector('.cards__list-item').cloneNode(true);   //создали переменную выбрав из ранее созданной переменной нужный нам класс и клонируем его содержимое
+const createCard = (cardData) => {
+    const card = cardTemplate.querySelector('.cards__list-item').cloneNode(true);   
     const likeButton = card.querySelector('.cards__like-button');
     const deleteButton = card.querySelector('.cards__delete-button');
     const cardImage = card.querySelector('.cards__image');
@@ -125,36 +120,39 @@ function createCard (cardData) {
     cardImage.src =  cardData.link;
     cardImage.alt = `Фотография ${cardTitle.textContent}`;
 
-    likeButton.addEventListener('click', function() { //кнопка лайка слушает как при клике на нее запускается функция:
-        likeButton.classList.toggle('cards__like-button_active'); //в которой переключается состояние нашего сердечка на активное
+    likeButton.addEventListener('click', function() { 
+        likeButton.classList.toggle('cards__like-button_active'); 
     });
-    deleteButton.addEventListener('click', function() { //кнопка удаления прик клике запускает функцию:...
-        const element = deleteButton.closest('.cards__list-item'); //создадим переменную при которой корзина наша с классом
-        element.remove(); //...при которой наша переменная с карточкой удаляется
+    deleteButton.addEventListener('click', function() { 
+        const element = deleteButton.closest('.cards__list-item'); 
+        element.remove(); 
     });
-    cardImage.addEventListener('click', function(){  //картинка слушает при клике вызывается функция, при которой:
-        openPopup(popupPhoto); //добавляется класс открывашки
-        photo.src = cardImage.src; //фото ищется в картимэдже
-        title.textContent = cardTitle.textContent; //заголовок ищется в заголовке
+    cardImage.addEventListener('click', function(){  
+        openPopup(popupPhoto); 
+        photo.src = cardImage.src; 
+        title.textContent = cardTitle.textContent; 
         photo.alt = `Фотография ${title.textContent}`;
     })
-    return(card); //возвращаем готовую карточку со всем что выше мы в нее положили
+    return(card); 
 }
 
-initialCards.forEach((item) => {
-  const card = createCard(item);
-  renderCard(card); //объявляем переменную карточки появляющуся ПЕРЕД всеми остальными из массива
-})
+
+const renderCard = (cardData) => {
+  const card = new Card(cardData, '.card_default');
+    cardsContainer.prepend(card.getView());
+}
+
+initialCards.forEach((cardData) => {
+  renderCard(cardData); 
+});
+
 //функция сохранения новой карточки
 function handleSaveCreateCard(evt) {
     evt.preventDefault();
-    const newCardData = {name: titleInput.value, link: linkInput.value};
-    const newCard = createCard(newCardData)
-    renderCard(newCard);
+    const cardData = {name: titleInput.value, link: linkInput.value};
+    renderCard(cardData);
     formPlaceElement.reset();
     closePopup(popupAddPlace);
 }
 
-  formPlaceElement.addEventListener('submit', handleSaveCreateCard); //наша форма создания новой краточки слышит как при сохранении запускается функция созданная выше
-
-enableValidation(validationConfig);
+  formPlaceElement.addEventListener('submit', handleSaveCreateCard); 
