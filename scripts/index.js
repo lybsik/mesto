@@ -80,8 +80,6 @@ function openEditProfilePopup(){
 //функция открытия добавления карточки
 function openAddPlacePopup() {
     formPlaceElement.reset();
-    submitButton.classList.add('form__button-save_disabled');
-    submitButton.disabled = true;
     openPopup(popupAddPlace);
     
 }
@@ -109,48 +107,22 @@ function handleSaveEditProfile(evt) {
 
 formElementEditProfile.addEventListener('submit', handleSaveEditProfile);
 
-//функция создания новой карточки
-const createCard = (cardData) => {
-    const card = cardTemplate.querySelector('.cards__list-item').cloneNode(true);   
-    const likeButton = card.querySelector('.cards__like-button');
-    const deleteButton = card.querySelector('.cards__delete-button');
-    const cardImage = card.querySelector('.cards__image');
-    const cardTitle = card.querySelector('.cards__title');
-    cardTitle.textContent = cardData.name;
-    cardImage.src =  cardData.link;
-    cardImage.alt = `Фотография ${cardTitle.textContent}`;
 
-    likeButton.addEventListener('click', function() { 
-        likeButton.classList.toggle('cards__like-button_active'); 
-    });
-    deleteButton.addEventListener('click', function() { 
-        const element = deleteButton.closest('.cards__list-item'); 
-        element.remove(); 
-    });
-    cardImage.addEventListener('click', function(){  
-        openPopup(popupPhoto); 
-        photo.src = cardImage.src; 
-        title.textContent = cardTitle.textContent; 
-        photo.alt = `Фотография ${title.textContent}`;
-    })
-    return(card); 
-}
-
-
-const renderCard = (cardData) => {
+function renderCard(cardData) {
   const card = new Card(cardData, '.card_default');
-    cardsContainer.prepend(card.getView());
+  const cardElement = card.getView();
+  return cardElement
 }
 
 initialCards.forEach((cardData) => {
-  renderCard(cardData); 
+  cardsContainer.prepend(renderCard(cardData)); 
 });
 
 //функция сохранения новой карточки
 function handleSaveCreateCard(evt) {
     evt.preventDefault();
     const cardData = {name: titleInput.value, link: linkInput.value};
-    renderCard(cardData);
+    cardsContainer.prepend(renderCard(cardData));
     formPlaceElement.reset();
     closePopup(popupAddPlace);
 }
