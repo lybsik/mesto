@@ -1,10 +1,9 @@
-import { openPopup } from './index.js';
-
 class Card {
- constructor ({ name, link }, templateSelector ) {
+ constructor ({ name, link }, templateSelector, handleCardClick ) {
     this._name = name;
     this._link = link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
     this._popupPhoto = document.querySelector('.popup-photo');
     this._photo = this._popupPhoto.querySelector('.popup-photo__image');
     this._title = this._popupPhoto.querySelector('.popup-photo__title');
@@ -32,20 +31,16 @@ class Card {
  }
 
 _handleDeleteCard() {
-    this._newCard.remove();
-    //this._newCard = null;
+   this._newCard.remove();
 }
 
 _handleLikeCard() {
-    this._likeButton.classList.toggle('cards__like-button_active');
+   this._likeButton.classList.toggle('cards__like-button_active');
 }
 
 _handleOpenImageCard() {
-    openPopup(this._popupPhoto); 
-        this._photo.src = this._link; 
-        this._title.textContent = this._name; 
-        this._photo.alt = `Фотография ${this._title.textContent}`;
-    }
+   this._handleCardClick();
+}
 
 
  _setListeners() {

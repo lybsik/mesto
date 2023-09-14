@@ -1,4 +1,3 @@
-
 export const validationConfig = {
     formSelector: '.form',
     inputSelector: '.form__input',
