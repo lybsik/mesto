@@ -42,7 +42,7 @@ const popupEditProfile = new PopupWithForm({
  }
 })
 
-const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__about'});
+const profile = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__caption'});
 
 popupPhoto.setEventListeners();
 popupAddPlace.setEventListeners();
@@ -67,6 +67,16 @@ profileEditButton.addEventListener('click', () => {
   popupAboutInput.value = userInfo.info;
   validationEditForm.resetValidation();
 });
+
+// //функция Сохранения информации при редактировании профиля
+// function handleSaveEditProfile(evt) {
+//     evt.preventDefault();
+//     nameInput.textContent = popupNameInput.value;
+//     aboutInput.textContent = popupAboutInput.value;
+//     closePopup(popupEditProfile);
+// }
+
+// formElementEditProfile.addEventListener('submit', handleSaveEditProfile);
 
 profileAddPlaceButton.addEventListener('click', () => {   
   popupAddPlace.open();
@@ -96,15 +106,7 @@ function renderCard(cardData) {
 //     })
 
 
-// //функция Сохранения информации при редактировании профиля
-// function handleSaveEditProfile(evt) {
-//     evt.preventDefault();
-//     nameInput.textContent = popupNameInput.value;
-//     aboutInput.textContent = popupAboutInput.value;
-//     closePopup(popupEditProfile);
-// }
 
-// formElementEditProfile.addEventListener('submit', handleSaveEditProfile);
 
 
 
