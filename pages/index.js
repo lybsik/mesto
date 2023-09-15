@@ -63,8 +63,8 @@ validationEditForm.enableValidation();
 profileEditButton.addEventListener('click', () => {
   popupEditProfile.open();
   const userInfo = profile.getUserInfo();
-  popupNameInput.value = userInfo.name;
-  popupAboutInput.value = userInfo.info;
+  popupNameInput.value = userInfo.name
+  popupAboutInput.value = userInfo.about
   validationEditForm.resetValidation();
 });
 
