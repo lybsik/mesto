@@ -1,4 +1,4 @@
-import './index.css';
+// import './index.css';
 import Card from "../components/Card.js";
 import { validationConfig, FormValidator } from '../components/FormValidator.js';
 import { initialCards } from '../scripts/initial-cards.js';
@@ -11,7 +11,7 @@ import UserInfo from '../components/UserInfo.js';
 // const popupAddPlace = document.querySelector('.popup_place'); ------------------
 
 const profileEditButton = document.querySelector('.profile__edit-button'); //ok//
-const formElementEditProfile = document.querySelector('#form_edit'); //ok//
+const formElementEditProfile = document.querySelector('.popup__form'); //ok//
 const popupNameInput = formElementEditProfile.querySelector('.form__input_type_name'); //ok//
 const popupAboutInput = formElementEditProfile.querySelector('.form__input_type_about'); //ok//
 const profileAddPlaceButton = document.querySelector('.profile__add-button'); //ok//
@@ -28,7 +28,7 @@ const popupPhoto = new PopupWithImage('.popup-photo'); //ok//
 // const photo = popupPhoto.querySelector('.popup-photo__image');
 // const title = popupPhoto.querySelector('.popup-photo__title');
 const popupAddPlace = new PopupWithForm({
-  popupSelector: '.popup_place', 
+  popupSelector: '.popup-place', 
   submitForm: (cardData) => {
     const card = renderCard(cardData)
     cardList.addItem(card)  
